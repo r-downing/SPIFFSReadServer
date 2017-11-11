@@ -6,6 +6,8 @@ version 0.0.1
 
 // just replace "ESP8266WebServer server(80);" declaration with "SPIFFSReadServer server(80);"
 
+#define DEBUG_PRINT(x) 
+
 #include <ESP8266WebServer.h>
 #include <FS.h>
 
