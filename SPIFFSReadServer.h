@@ -1,7 +1,7 @@
 /*
 SPIFFSReadServer
 Ryan Downing
-version 0.0.1
+version 0.0.2
 */
 
 // just replace "ESP8266WebServer server(80);" declaration with "SPIFFSReadServer server(80);"
