@@ -1,4 +1,9 @@
-// first draft
+/*
+SPIFFSReadServer
+Ryan Downing
+version 0.0.1
+*/
+
 // just replace "ESP8266WebServer server(80);" declaration with "SPIFFSReadServer server(80);"
 
 #include <ESP8266WebServer.h>
@@ -9,14 +14,16 @@
 
 class SPIFFSReadServer: public ESP8266WebServer {
   public:
-    static constexpr const char *metaRefreshStr = "<head><meta http-equiv=\"refresh\" content=\"1; url=/\" /></head><body><a href=\"/\">redirecting...</a></body>";
-
+    //static constexpr const char *metaRefreshStr = "<head><meta http-equiv=\"refresh\" content=\"1; url=/\" /></head><body><a href=\"/\">redirecting...</a></body>";
+    //pure js redirect, better browser compatibility
+    static constexpr const char *redirectStr = "<script>window.location='/'</script>Not found. <a href='/'>Home</a>";
+    
     SPIFFSReadServer(int port = 80) : ESP8266WebServer( port) {
       //serve files from SPIFFS
       ESP8266WebServer::onNotFound([&]() {
         if (!handleFileRead(ESP8266WebServer::uri())) {
           ESP8266WebServer::sendHeader("Cache-Control", " max-age=172800");
-          ESP8266WebServer::send(302, "text/html", metaRefreshStr);
+          ESP8266WebServer::send(302, "text/html", redirectStr);
         }
       }); //ESP8266WebServer::onNotFound
     } //constructor
