@@ -6,7 +6,7 @@ version 0.0.2
 
 // just replace "ESP8266WebServer server(80);" declaration with "SPIFFSReadServer server(80);"
 
-#define DEBUG_PRINT(x) 
+#define DEBUG_SPIFFSREADSERVER(x) 
 
 #include <ESP8266WebServer.h>
 #include <FS.h>
@@ -33,7 +33,7 @@ class SPIFFSReadServer: public ESP8266WebServer {
 
     //code from fsbrowser example, consolidated.
     bool handleFileRead(String path) {
-      DEBUG_PRINT("handlefileread" + path);
+      DEBUG_SPIFFSREADSERVER("handlefileread" + path);
       if (path.endsWith("/")) path += "index.htm";
       String contentType;
       if (path.endsWith(".htm") || path.endsWith(".html")) contentType = "text/html";
@@ -67,7 +67,7 @@ class SPIFFSReadServer: public ESP8266WebServer {
       if (SPIFFS.exists(prefix + ".min" + ext + ".gz")) path = prefix + ".min" + ext + ".gz";
 
       if (SPIFFS.exists(path)) {
-        DEBUG_PRINT("sending file " + path);
+        DEBUG_SPIFFSREADSERVER("sending file " + path);
         File file = SPIFFS.open(path, "r");
         if (ESP8266WebServer::hasArg("download"))
           ESP8266WebServer::sendHeader("Content-Disposition", " attachment;");
