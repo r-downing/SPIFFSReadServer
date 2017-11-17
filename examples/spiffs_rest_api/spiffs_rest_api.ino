@@ -9,13 +9,13 @@
 #endif
 
 //includes
-#include <PersWiFiManager.h>
+#include <PersWiFiManager.h> //http://ryandowning.net/PersWiFiManager
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266SSDP.h>
 
 //extension of ESP8266WebServer with SPIFFS handlers built in
-#include <SPIFFSReadServer.h> // https://github.com/r-downing/SPIFFSReadServer
+#include <SPIFFSReadServer.h> //http://ryandowning.net/SPIFFSReadServer
 // upload data folder to chip with Arduino ESP8266 filesystem uploader
 // https://github.com/esp8266/arduino-esp8266fs-plugin
 
