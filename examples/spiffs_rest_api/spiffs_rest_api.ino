@@ -9,13 +9,13 @@
 #endif
 
 //includes
-#include <PersWiFiManager.h> //http://ryandowning.net/PersWiFiManager
+#include <PersWiFiManager.h> // http://ryandowning.net/PersWiFiManager
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266SSDP.h>
 
 //extension of ESP8266WebServer with SPIFFS handlers built in
-#include <SPIFFSReadServer.h> //http://ryandowning.net/SPIFFSReadServer
+#include <SPIFFSReadServer.h> // http://ryandowning.net/SPIFFSReadServer
 // upload data folder to chip with Arduino ESP8266 filesystem uploader
 // https://github.com/esp8266/arduino-esp8266fs-plugin
 
@@ -26,6 +26,7 @@
 
 
 //server objects
+//just use this instead of "ESP8266WebServer server(80);"
 SPIFFSReadServer server(80);
 DNSServer dnsServer;
 PersWiFiManager persWM(server, dnsServer);
@@ -37,6 +38,18 @@ String y;
 void setup() {
   DEBUG_BEGIN; //for terminal debugging
   DEBUG_PRINT();
+  
+  //optional code handlers to run everytime wifi is connected...
+  persWM.onConnect([]() {
+    DEBUG_PRINT("wifi connected");
+    DEBUG_PRINT(WiFi.localIP());
+    EasySSDP::begin(server, DEVICE_NAME);
+  });
+  //...or AP mode is started
+  persWM.onAp([](){
+    DEBUG_PRINT("AP MODE");
+    DEBUG_PRINT(persWM.getApSsid());
+  });
 
   //allows serving of files from SPIFFS
   SPIFFS.begin();
@@ -68,18 +81,6 @@ void setup() {
     server.send(200, "application/json", jsonchar);
 
   }); //server.on api
-
-
-  //SSDP makes device visible on windows network
-  server.on("/description.xml", HTTP_GET, []() {
-    SSDP.schema(server.client());
-  });
-  SSDP.setSchemaURL("description.xml");
-  SSDP.setHTTPPort(80);
-  SSDP.setName(DEVICE_NAME);
-  SSDP.setURL("/");
-  SSDP.begin();
-  SSDP.setDeviceType("upnp:rootdevice");
 
   server.begin();
   DEBUG_PRINT("setup complete.");
