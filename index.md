@@ -27,6 +27,8 @@ Just replace it with:
 SPIFFSReadServer server(80);
 ```
 
+[Full Example Code](https://github.com/r-downing/SPIFFSReadServer/blob/master/examples/spiffs_rest_api/spiffs_rest_api.ino)
+
 The SPIFFSReadServer inherits all the normal functions from the ESP8266WebServer library, and automatically sets up the file-serving function on the onNotFound handler.
 
 ## Installation
