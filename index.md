@@ -56,3 +56,6 @@ This is done via an *alt* argument of URL in the page or request. For example, t
 ```html
 <script src="/angular.min.js?alt=https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.6%2Fangular.min.js"></script>
 ```
+
+
+© 2017 [Ryan Downing](http://ryandowning.net)
