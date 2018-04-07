@@ -7,6 +7,7 @@
 #######################################
 
 SPIFFSReadServer	KEYWORD1
+SPIFFSReadServerSecure	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
